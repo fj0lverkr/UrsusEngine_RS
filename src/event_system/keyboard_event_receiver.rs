@@ -16,6 +16,16 @@ impl EventReceiver for KeyboardEventReceiver {
                 Keycode::D => true,
                 _ => false,
             },
+            Event::KeyUp {
+                keycode: Some(keycode),
+                ..
+            } => match keycode {
+                Keycode::W => true,
+                Keycode::A => true,
+                Keycode::S => true,
+                Keycode::D => true,
+                _ => false,
+            },
             _ => false,
         }
     }
