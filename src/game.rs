@@ -39,10 +39,11 @@ impl Game {
 
     pub fn update(&mut self) -> Result<(), String> {
         for event in self.event_pump.poll_iter() {
-            match event {
-                Event::Quit { .. } => self.is_running = false,
-                _ => {}
+            if let Event::Quit { .. } = event {
+                self.is_running = false
             }
+            //here we can cascade through other EventReceivers and check if they have handled the
+            //event, see Game.cpp in the original project.
         }
         self.renderer.draw()?;
         Ok(())
