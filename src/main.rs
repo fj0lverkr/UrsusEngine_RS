@@ -4,10 +4,12 @@ use game::Game;
 
 extern crate sdl2;
 
-pub mod ecs;
-pub mod event_system;
-pub mod game;
-pub mod renderer;
+mod camera_2d;
+mod ecs;
+mod event_system;
+mod game;
+mod renderer;
+mod vector_2d;
 
 fn main() -> Result<(), String> {
     let mut game_context = Game::new("Ursus Engine", 1920, 1080, false, false)?;
