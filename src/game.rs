@@ -50,7 +50,7 @@ impl Game {
             //here we can cascade through other EventReceivers and check if they have handled the
             //event, see Game.cpp in the original project.
             if self.keyboard_controller.component.handle_event(&event) {
-                println!("Keyboard event handled correctly");
+                break;
             } else {
                 println!("Unhandled event {:?}", event);
             }

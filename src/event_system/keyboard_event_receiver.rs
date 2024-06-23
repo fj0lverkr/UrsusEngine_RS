@@ -1,9 +1,10 @@
-use super::event_receiver::EventReceiver;
+use super::event_handler::EventHandler;
 use sdl2::{event::Event, keyboard::Keycode};
 
+#[derive(Debug)]
 pub struct KeyboardEventReceiver;
 
-impl EventReceiver for KeyboardEventReceiver {
+impl EventHandler for KeyboardEventReceiver {
     fn handle_event(&self, e: &Event) -> bool {
         match *e {
             Event::KeyDown {

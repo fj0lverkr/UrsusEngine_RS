@@ -1,9 +1,11 @@
-use crate::event_system::keyboard_event_receiver::KeyboardEventReceiver;
+use crate::event_system::{
+    event_receiver::EventReceiver, keyboard_event_receiver::KeyboardEventReceiver,
+};
 
 use super::component::BaseComponent;
 
 pub struct KeyboardController {
-    pub component: BaseComponent<KeyboardEventReceiver>,
+    pub component: BaseComponent,
     //sprite component
     //transform component
 }
@@ -11,7 +13,7 @@ pub struct KeyboardController {
 impl KeyboardController {
     pub fn new() -> KeyboardController {
         let mut component = BaseComponent::new();
-        component.subscribe_to_events(KeyboardEventReceiver {});
+        component.subscribe_to_events(EventReceiver::Keyboard(KeyboardEventReceiver {}));
         KeyboardController { component }
     }
 }
