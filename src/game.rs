@@ -2,6 +2,7 @@ use sdl2::event::Event;
 use sdl2::{pixels::Color, EventPump};
 
 use crate::camera_2d::Camera2D;
+use crate::ecs::entity::Entity;
 use crate::ecs::input_controller::KeyboardController;
 use crate::renderer::Renderer;
 
@@ -26,7 +27,7 @@ impl Game {
         let renderer = Renderer::new(title, window_width, window_height, fullscreen, render_color)?;
         let event_pump = renderer.sdl_context.event_pump()?;
         let camera = Camera2D::new(0.0, 0.0, window_width as f32, window_height as f32);
-        let keyboard_controller = KeyboardController::new();
+        let keyboard_controller = KeyboardController::new(Entity {});
         Ok(Game {
             is_debug,
             is_running: true,
