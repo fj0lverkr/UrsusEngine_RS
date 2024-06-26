@@ -1,6 +1,6 @@
 use super::manager::EntityGroup;
 
-#[derive(PartialEq, Eq)]
+#[derive(PartialEq, Eq, Clone, Copy)]
 pub struct Entity {
     is_active: bool,
 }

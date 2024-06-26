@@ -11,7 +11,10 @@ impl EventHandler for KeyboardEventReceiver {
                 keycode: Some(keycode),
                 ..
             } => match keycode {
-                Keycode::W => true,
+                Keycode::W => {
+                    println!("W key down");
+                    true
+                }
                 Keycode::A => true,
                 Keycode::S => true,
                 Keycode::D => true,
