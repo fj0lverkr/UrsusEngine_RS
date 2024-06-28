@@ -1,7 +1,7 @@
 use super::event_handler::EventHandler;
 use sdl2::{event::Event, keyboard::Keycode};
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct KeyboardEventReceiver;
 
 impl EventHandler for KeyboardEventReceiver {

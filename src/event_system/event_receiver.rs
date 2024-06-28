@@ -1,7 +1,7 @@
 use super::{event_handler::EventHandler, keyboard_event_receiver::KeyboardEventReceiver};
 use sdl2::event::Event;
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum EventReceiver {
     // TODO create these for all SDL2 Event types
     Keyboard(KeyboardEventReceiver),

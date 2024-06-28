@@ -2,8 +2,9 @@ use crate::event_system::{
     event_receiver::EventReceiver, keyboard_event_receiver::KeyboardEventReceiver,
 };
 
-use super::{component::BaseComponent, entity::Entity};
+use super::component::BaseComponent;
 
+#[derive(Eq, PartialEq)]
 pub struct KeyboardController {
     pub component: BaseComponent,
     //sprite component
@@ -11,8 +12,8 @@ pub struct KeyboardController {
 }
 
 impl KeyboardController {
-    pub fn new(controlled_entity: Entity) -> KeyboardController {
-        let mut component = BaseComponent::new(controlled_entity);
+    pub fn new() -> KeyboardController {
+        let mut component = BaseComponent::new();
         component.subscribe_to_events(EventReceiver::Keyboard(KeyboardEventReceiver {}));
         KeyboardController { component }
     }

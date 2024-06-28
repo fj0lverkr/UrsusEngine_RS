@@ -2,22 +2,30 @@ use sdl2::event::Event;
 
 use crate::event_system::{event_handler::EventHandler, event_receiver::EventReceiver};
 
-use super::{entity::Entity, input_controller::KeyboardController};
+use super::input_controller::KeyboardController;
 
-pub enum Component {
-    KeyboardControllerComponent(KeyboardController),
+pub trait ComponentBehavior {
+    fn init(&mut self);
+    fn draw(&self);
+    fn update(&mut self);
 }
 
+#[derive(PartialEq, Eq)]
+pub enum Component {
+    KeyboardController(KeyboardController),
+    Transform(KeyboardController),
+    Sprite(KeyboardController),
+}
+
+#[derive(PartialEq, Eq)]
 pub struct BaseComponent {
     event_handlers: Vec<EventReceiver>,
-    entity: Entity,
 }
 
 impl BaseComponent {
-    pub fn new(entity: Entity) -> BaseComponent {
+    pub fn new() -> BaseComponent {
         BaseComponent {
             event_handlers: Vec::new(),
-            entity,
         }
     }
 

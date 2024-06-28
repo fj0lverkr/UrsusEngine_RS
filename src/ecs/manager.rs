@@ -53,9 +53,9 @@ impl Manager {
         }
     }
 
-    pub fn add_entity(&mut self) -> Entity {
+    pub fn add_entity(&mut self) -> &Entity {
         let entity = Entity::new();
         self.entities.push(entity);
-        entity
+        self.entities.last().unwrap()
     }
 }
