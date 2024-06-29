@@ -2,7 +2,7 @@ use sdl2::event::Event;
 
 use crate::event_system::{event_handler::EventHandler, event_receiver::EventReceiver};
 
-use super::input_controller::KeyboardController;
+use super::{input_controller::KeyboardController, transform_component::TransformComponent};
 
 pub trait ComponentBehavior {
     fn init(&mut self);
@@ -13,8 +13,20 @@ pub trait ComponentBehavior {
 #[derive(PartialEq, Eq)]
 pub enum Component {
     KeyboardController(KeyboardController),
-    Transform(KeyboardController),
+    Transform(TransformComponent),
     Sprite(KeyboardController),
+}
+
+impl ComponentBehavior for Component {
+    fn init(&mut self) {}
+    fn draw(&self) {}
+    fn update(&mut self) {
+        match self {
+            Component::KeyboardController(_) => (),
+            Component::Transform(t) => t.update(),
+            Component::Sprite(_) => (),
+        }
+    }
 }
 
 #[derive(PartialEq, Eq)]

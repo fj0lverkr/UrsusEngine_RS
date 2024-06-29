@@ -1,9 +1,13 @@
-use super::{component::Component, manager::EntityGroup};
+use super::{
+    component::{Component, ComponentBehavior},
+    manager::EntityLabel,
+};
 
 #[derive(PartialEq, Eq)]
 pub struct Entity {
-    is_active: bool,
-    components: Vec<Component>,
+    pub is_active: bool,
+    pub components: Vec<Component>,
+    pub labels: Vec<EntityLabel>,
 }
 
 impl Entity {
@@ -11,29 +15,34 @@ impl Entity {
         Entity {
             is_active: true,
             components: Vec::new(),
+            labels: Vec::new(),
         }
     }
-    pub fn update(&mut self) {}
+    pub fn update(&mut self) {
+        for c in &mut self.components {
+            c.update();
+        }
+    }
 
     pub fn draw(&self) {}
 
-    pub fn has_group(&self, group: &EntityGroup) -> bool {
-        //TODO implement this
-        false
+    pub fn add_label(&mut self, label: EntityLabel) {
+        if !self.has_label(&label) {
+            self.labels.push(label);
+        }
     }
 
-    pub fn is_active(&self) -> bool {
-        self.is_active
+    pub fn has_label(&self, label: &EntityLabel) -> bool {
+        self.labels.iter().any(|l| l == label)
     }
 
     pub fn add_component(&mut self, component: Component) {
-        self.components.push(component);
+        if !self.has_component(&component) {
+            self.components.push(component);
+        }
     }
 
-    pub fn has_component(&self, component: Component) -> bool {
-        match self.components.iter().position(|c| *c == component) {
-            Some(_) => true,
-            None => false,
-        }
+    pub fn has_component(&self, component: &Component) -> bool {
+        self.components.iter().any(|c| c == component)
     }
 }

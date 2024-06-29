@@ -29,7 +29,7 @@ impl Game {
         let render_color = Color::WHITE;
         let renderer = Renderer::new(title, window_width, window_height, fullscreen, render_color)?;
         let event_pump = renderer.sdl_context.event_pump()?;
-        let camera = Camera2D::new(0.0, 0.0, window_width as f32, window_height as f32);
+        let camera = Camera2D::new(0, 0, window_width, window_height);
         let keyboard_controller = KeyboardController::new();
         Ok(Game {
             manager,

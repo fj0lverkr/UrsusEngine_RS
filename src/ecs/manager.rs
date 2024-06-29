@@ -1,25 +1,21 @@
-use std::collections::HashMap;
-
 use super::entity::Entity;
 
 const MAXGROUPS: usize = 32;
 
 #[derive(Eq, PartialEq, Hash)]
-pub enum EntityGroup {
+pub enum EntityLabel {
     Player,
 }
 
 #[derive(PartialEq, Eq)]
 pub struct Manager {
     entities: Vec<Entity>,
-    grouped_entities: HashMap<EntityGroup, Vec<Entity>>,
 }
 
 impl Manager {
-    pub fn new() -> Manager {
-        Manager {
+    pub fn new() -> Self {
+        Self {
             entities: Vec::new(),
-            grouped_entities: HashMap::with_capacity(MAXGROUPS),
         }
     }
 
@@ -36,20 +32,16 @@ impl Manager {
     }
 
     pub fn refresh(&mut self) {
-        for (entity_group, entities_in_group) in &mut self.grouped_entities {
-            entities_in_group.retain(|e| e.has_group(entity_group) && e.is_active());
-        }
-        self.entities.retain(|e| e.is_active());
+        //       for (entity_group, entities_in_group) in &mut self.grouped_entities {
+        //          entities_in_group.retain(|e| e.has_group(entity_group) && e.is_active());
+        //     }
+        self.entities.retain(|e| e.is_active);
     }
 
-    pub fn add_to_group(&mut self, entity: Entity, group: EntityGroup) {
-        match self.grouped_entities.get_mut(&group) {
-            Some(g) => {
-                g.push(entity);
-            }
-            None => {
-                self.grouped_entities.insert(group, vec![entity]);
-            }
+    pub fn add_label(&mut self, entity: &Entity, label: EntityLabel) {
+        // First check if the given Enity is managed by this Manager
+        if let Some(i) = self.entities.iter().position(|e| e == entity) {
+            let entity_to_label = self.entities.get(i).unwrap();
         }
     }
 
