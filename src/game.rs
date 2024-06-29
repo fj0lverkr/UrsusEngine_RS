@@ -2,8 +2,11 @@ use sdl2::event::Event;
 use sdl2::{pixels::Color, EventPump};
 
 use crate::camera_2d::Camera2D;
+use crate::ecs::component::Component;
+use crate::ecs::entity::Entity;
 use crate::ecs::input_controller::KeyboardController;
-use crate::ecs::manager::Manager;
+use crate::ecs::manager::{EntityLabel, Manager};
+use crate::ecs::transform_component::TransformComponent;
 use crate::renderer::Renderer;
 
 pub struct Game {
@@ -24,8 +27,7 @@ impl Game {
         fullscreen: bool,
         is_debug: bool,
     ) -> Result<Game, String> {
-        let mut manager = Manager::new();
-        let player = manager.add_entity();
+        let manager = Manager::new();
         let render_color = Color::WHITE;
         let renderer = Renderer::new(title, window_width, window_height, fullscreen, render_color)?;
         let event_pump = renderer.sdl_context.event_pump()?;
@@ -34,12 +36,19 @@ impl Game {
         Ok(Game {
             manager,
             is_debug,
-            is_running: true,
+            is_running: false,
             renderer,
             event_pump,
             camera,
             keyboard_controller,
         })
+    }
+
+    pub fn init(&mut self) {
+        let player: &mut Entity = self.manager.add_entity_mut();
+        player.add_component(Component::Transform(TransformComponent::new()));
+        //self.manager.add_label(player, EntityLabel::Player);
+        self.is_running = true;
     }
 
     pub fn is_running(&self) -> bool {

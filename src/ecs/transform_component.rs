@@ -62,5 +62,9 @@ impl ComponentBehavior for TransformComponent {
     fn update(&mut self) {
         self.position.x += self.velocity.x * self.speed;
         self.position.y += self.velocity.y * self.speed;
+        println!(
+            "Transform changed position: x {}, y {}",
+            self.position.x, self.position.y
+        );
     }
 }

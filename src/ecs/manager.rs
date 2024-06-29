@@ -41,7 +41,8 @@ impl Manager {
     pub fn add_label(&mut self, entity: &Entity, label: EntityLabel) {
         // First check if the given Enity is managed by this Manager
         if let Some(i) = self.entities.iter().position(|e| e == entity) {
-            let entity_to_label = self.entities.get(i).unwrap();
+            let entity_to_label = self.entities.get_mut(i).unwrap();
+            entity_to_label.add_label(label);
         }
     }
 
@@ -49,5 +50,11 @@ impl Manager {
         let entity = Entity::new();
         self.entities.push(entity);
         self.entities.last().unwrap()
+    }
+
+    pub fn add_entity_mut(&mut self) -> &mut Entity {
+        let entity = Entity::new();
+        self.entities.push(entity);
+        self.entities.last_mut().unwrap()
     }
 }

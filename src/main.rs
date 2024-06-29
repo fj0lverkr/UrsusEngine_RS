@@ -15,6 +15,7 @@ mod vector_2d;
 
 fn main() -> Result<(), String> {
     let mut game_context = Game::new(WINDOW_TITLE, WINDOW_INIT_W, WINDOW_INIT_H, false, false)?;
+    game_context.init();
     while game_context.is_running() {
         game_context.update()?;
         ::std::thread::sleep(Duration::new(0, 1_000_000_000u32 / FPS));
